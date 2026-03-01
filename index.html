@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕵️ Wer bin ich? – Personenbeschreibung</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1025;
+  --paper: #fef9f0;
+  --warm: #f5efe6;
+  --accent: #e8501a;
+  --gold: #f0a500;
+  --teal: #1a8c7a;
+  --teal-light: #d0f0eb;
+  --purple: #6b3fa0;
+  --purple-light: #ede5f8;
+  --shadow-ink: rgba(26,16,37,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 40px;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
+}
+
+.wrap {
+  width: 100%;
+  max-width: 680px;
+}
+
+/* ── Header ─────────────────────────────────── */
+.hdr {
+  text-align: center;
+  margin-bottom: 24px;
+  animation: fadeUp .5s ease both;
+}
+
+.hdr-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: white;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: clamp(30px, 7vw, 52px);
+  font-weight: 800;
+  color: var(--paper);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+h1 em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.hdr-sub {
+  color: rgba(254,249,240,.45);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* ── Score strip ─────────────────────────────── */
+.scores {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  animation: fadeUp .55s .05s ease both;
+}
+
+.sc {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  padding: 7px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.sc-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(254,249,240,.4); }
+.sc-val { font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 800; color: var(--gold); line-height: 1.1; }
+
+/* ── Card ────────────────────────────────────── */
+.card {
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 6px 0 #0a0614, 0 12px 40px rgba(0,0,0,.45);
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp .6s .1s ease both;
+}
+
+.card-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 50%, var(--teal) 100%);
+}
+
+/* ── Person header ───────────────────────────── */
+.p-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.p-avatar {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px;
+  flex-shrink: 0;
+  box-shadow: 0 3px 0 rgba(0,0,0,.3);
+}
+
+.p-info h2 {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.p-info p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* ── Description ─────────────────────────────── */
+.sec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin: 0 0 8px;
+}
+
+.desc-box {
+  background: white;
+  border: 2px solid var(--teal-light);
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #333;
+  min-height: 90px;
+}
+
+/* ── Clue tags ───────────────────────────────── */
+.clues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  min-height: 10px;
+}
+
+.clue-tag {
+  background: var(--teal-light);
+  color: var(--teal);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  animation: popIn .25s ease;
+}
+
+/* ── Divider ─────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 2px dashed #e8e0d4;
+  margin: 20px 0;
+}
+
+/* ── Quick chips ─────────────────────────────── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  background: white;
+  border: 2px solid #e8e0d4;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.chip:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-light);
+}
+
+/* ── Input row ───────────────────────────────── */
+.inp-row {
+  display: flex;
+  gap: 8px;
+}
+
+.inp {
+  flex: 1;
+  border: 2.5px solid #e0d8cc;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+  background: white;
+}
+
+.inp:focus { border-color: var(--teal); }
+.inp::placeholder { color: #bbb; }
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 11px 18px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .1s, box-shadow .1s, opacity .2s;
+  box-shadow: 0 3px 0 rgba(0,0,0,.18);
+  white-space: nowrap;
+}
+
+.btn:active { transform: translateY(2px); box-shadow: none; }
+.btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+.btn-ask { background: var(--teal); color: white; }
+.btn-guess { background: var(--accent); color: white; }
+.btn-next { background: var(--teal); color: white; font-size: 16px; padding: 14px 32px; }
+
+/* ── Conversation ────────────────────────────── */
+.conv {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  max-height: 210px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.conv::-webkit-scrollbar { width: 3px; }
+.conv::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
+
+.msg {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  animation: fadeUp .2s ease;
+}
+
+.msg.user { flex-direction: row-reverse; }
+
+.msg-ico {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.msg.assistant .msg-ico { background: var(--teal-light); }
+.msg.user .msg-ico { background: var(--purple-light); }
+
+.msg-bbl {
+  max-width: 78%;
+  padding: 9px 13px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.msg.assistant .msg-bbl {
+  background: var(--teal-light);
+  color: #1a4535;
+  border-bottom-left-radius: 3px;
+}
+
+.msg.user .msg-bbl {
+  background: var(--purple-light);
+  color: var(--purple);
+  border-bottom-right-radius: 3px;
+}
+
+/* ── Counter ─────────────────────────────────── */
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--warm);
+  border-radius: 10px;
+  padding: 9px 14px;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+}
+
+.cdots {
+  display: flex;
+  gap: 4px;
+}
+
+.cdot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #ddd;
+  transition: background .3s;
+}
+
+.cdot.used { background: var(--accent); }
+
+/* ── Guess area ──────────────────────────────── */
+.guess-area {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px dashed #e0d8cc;
+}
+
+.guess-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* ── Result overlay ──────────────────────────── */
+.result {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(254,249,240,.97);
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px;
+  z-index: 20;
+  animation: fadeIn .3s ease;
+}
+
+.result.show { display: flex; }
+.result-ico { font-size: 72px; margin-bottom: 14px; }
+.result-title { font-family: 'Baloo 2', sans-serif; font-size: 34px; font-weight: 800; color: var(--ink); }
+.result-msg { font-size: 15px; font-weight: 600; color: #666; margin: 8px 0 16px; max-width: 380px; line-height: 1.5; }
+.result-ans { background: var(--teal-light); color: var(--teal); border-radius: 12px; padding: 12px 22px; font-weight: 700; font-size: 15px; margin-bottom: 22px; }
+
+/* ── New game btn ────────────────────────────── */
+.btn-new-wrap { text-align: center; margin-top: 18px; animation: fadeUp .65s .15s ease both; }
+
+.btn-new {
+  background: rgba(255,255,255,.07);
+  border: 1.5px solid rgba(255,255,255,.12);
+  color: rgba(254,249,240,.6);
+  border-radius: 10px;
+  padding: 9px 22px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-new:hover { background: rgba(255,255,255,.12); }
+
+.footer { text-align: center; color: rgba(254,249,240,.2); font-size: 11px; font-weight: 600; margin-top: 14px; }
+
+/* ── Animations ──────────────────────────────── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes popIn  { from { opacity:0; transform:scale(.6); } to { opacity:1; transform:scale(1); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="hdr-label">🕵️ Deutsch · 4. Klasse</div>
+    <h1>Wer bin <em>ich?</em></h1>
+    <p class="hdr-sub">Stelle kluge Fragen und finde die geheime Person!</p>
+  </div>
+
+  <div class="scores">
+    <div class="sc"><span class="sc-lbl">⭐ Punkte</span><span class="sc-val" id="score">0</span></div>
+    <div class="sc"><span class="sc-lbl">🎯 Runde</span><span class="sc-val" id="round">1</span></div>
+    <div class="sc"><span class="sc-lbl">🏆 Rekord</span><span class="sc-val" id="best">0</span></div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="card-stripe"></div>
+
+    <div class="p-head">
+      <div class="p-avatar" id="avatar">🕵️</div>
+      <div class="p-info">
+        <h2>Gesuchte Person</h2>
+        <p id="p-hint">Lies die Beschreibung und stell Fragen!</p>
+      </div>
+    </div>
+
+    <div class="sec-label">📖 Beschreibung</div>
+    <div class="desc-box" id="descBox">Lade neue Person…</div>
+    <div class="clues" id="clues"></div>
+
+    <hr class="divider">
+
+    <div class="sec-label">❓ Schnellfragen</div>
+    <div class="chips">
+      <button class="chip" onclick="fillQ('Ist es ein Mädchen?')">👧 Mädchen?</button>
+      <button class="chip" onclick="fillQ('Ist es ein Junge?')">👦 Junge?</button>
+      <button class="chip" onclick="fillQ('Ist es ein Tier?')">🐾 Tier?</button>
+      <button class="chip" onclick="fillQ('Hat die Person lange Haare?')">💇 Haare?</button>
+      <button class="chip" onclick="fillQ('Ist die Person groß?')">📏 Groß?</button>
+      <button class="chip" onclick="fillQ('Trägt die Person besondere Kleidung?')">👕 Kleidung?</button>
+      <button class="chip" onclick="fillQ('Hat die Person besondere Fähigkeiten?')">✨ Fähigkeiten?</button>
+      <button class="chip" onclick="fillQ('Lebt die Person in Deutschland?')">🗺️ Heimat?</button>
+      <button class="chip" onclick="fillQ('Ist die Person aus einem Buch?')">📚 Buch?</button>
+      <button class="chip" onclick="fillQ('Hat die Person Freunde oder Tiere?')">🐶 Freunde?</button>
+    </div>
+
+    <div class="sec-label">✏️ Eigene Frage stellen</div>
+    <div class="inp-row">
+      <input class="inp" id="qInp" type="text" placeholder="Deine Frage hier eingeben…" />
+      <button class="btn btn-ask" id="askBtn" onclick="ask()">Fragen →</button>
+    </div>
+
+    <div class="conv" id="conv"></div>
+
+    <div class="counter">
+      <span>Fragen benutzt:</span>
+      <div class="cdots" id="cdots">
+        <div class="cdot"></div><div class="cdot"></div><div class="cdot"></div>
+        <div class="cdot"></div><div class="cdot"></div><div class="cdot"></div>
+        <div class="cdot"></div><div class="cdot"></div>
+      </div>
+      <span id="cText">0 / 8</span>
+    </div>
+
+    <div class="guess-area">
+      <div class="guess-label">🎯 Dein Lösungsversuch</div>
+      <div class="inp-row">
+        <input class="inp" id="gInp" type="text" placeholder="Ich glaube es ist…" />
+        <button class="btn btn-guess" onclick="guess()">Lösen! 🎉</button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="result" id="result">
+      <div class="result-ico" id="rIco"></div>
+      <div class="result-title" id="rTitle"></div>
+      <div class="result-msg" id="rMsg"></div>
+      <div class="result-ans" id="rAns"></div>
+      <button class="btn btn-next" onclick="newGame()">Nächste Person →</button>
+    </div>
+  </div>
+
+  <div class="btn-new-wrap">
+    <button class="btn-new" onclick="newGame()">🔄 Andere Person</button>
+  </div>
+  <p class="footer">Personenbeschreibung üben · 4. Klasse Deutsch</p>
+</div>
+
+<script>
+// ─── Personen-Datenbank ───────────────────────────────────────────────────────
+const PERSONEN = [
+  {
+    name: "Pippi Langstrumpf",
+    emoji: "🧒",
+    hint: "Eine sehr starke Kinderbuchfigur",
+    beschreibung: "Diese Person ist ein Mädchen mit roten Zöpfen, die nach oben abstehen. Sie ist unglaublich stark – stärker als jeder Erwachsene! Sie lebt alleine in einer großen Villa mit einem Pferd und einem Affen als Haustiere. Sie geht nicht gerne in die Schule und macht immer, was sie möchte.",
+    fakten: {
+      geschlecht: "mädchen",
+      aussehen: ["rote haare", "zöpfe", "sommersprossen", "bunt gekleidet", "geflickte kleidung", "zu große schuhe"],
+      größe: "groß",
+      alter: "9 jahre",
+      tier: false,
+      tiere: ["pferd", "affe", "herr nilsson", "kleiner onkel"],
+      fähigkeiten: ["sehr stark", "stärker als alle erwachsenen", "kann pferde heben"],
+      herkunft: "schweden",
+      buch: true,
+      film: true,
+      serie: true,
+      charakter: ["mutig", "lustig", "frech", "hilfsbereit", "unabhängig"],
+      freunde: ["tommy", "annika"],
+      besonderheit: ["lebt alleine", "villa kunterbunt", "vater ist piratenkönig", "goldmünzen"],
+    },
+    antworten: {
+      "mädchen": "Ja, es ist ein Mädchen! 👧",
+      "junge": "Nein, es ist kein Junge.",
+      "tier": "Nein, es ist kein Tier. Aber sie hat Tiere als Freunde!",
+      "haare": "Ja! Die Person hat sehr auffällige rote Haare – sie stehen in zwei langen Zöpfen nach oben!",
+      "lange haare": "Ja, die Haare sind lang – als Zöpfe, die lustig nach oben zeigen.",
+      "groß": "Ja, die Person ist recht groß für ihr Alter.",
+      "klein": "Nein, die Person ist nicht besonders klein.",
+      "kleidung": "Ja! Die Kleidung ist sehr bunt und ein bisschen schief – zum Beispiel verschiedene Strümpfe!",
+      "fähigkeiten": "Oh ja! Diese Person ist unglaublich stark – stärker als alle Erwachsenen zusammen!",
+      "stark": "Ja! Megastark! Sie kann sogar ein Pferd hochheben!",
+      "heimat": "Die Person kommt aus Schweden. 🇸🇪",
+      "deutschland": "Nein, die Person kommt nicht aus Deutschland.",
+      "buch": "Ja! Diese Person kommt aus einem sehr berühmten Kinderbuch.",
+      "fernsehen": "Ja, es gibt auch Filme und Serien über diese Person!",
+      "freunde": "Ja! Sie hat zwei menschliche Freunde: einen Jungen und ein Mädchen. Und ein Pferd und einen Affen!",
+      "pferd": "Ja, sie hat ein Pferd als Haustier!",
+      "affe": "Ja, sie hat auch einen Affen!",
+      "schule": "Sie geht nicht gerne in die Schule – sie macht lieber, was sie will!",
+      "eltern": "Ihr Vater ist ein Piratenkönig! Ihre Mutter ist schon lange fort.",
+      "alleine": "Ja, sie lebt ganz alleine in einer großen Villa – der Villa Kunterbunt!",
+      "haus": "Ja, sie lebt in der berühmten 'Villa Kunterbunt'!",
+      "reich": "Ja, sie hat viele Goldmünzen in einem Koffer!",
+      "geld": "Ja! Sie ist sehr reich und hat einen ganzen Koffer voller Goldmünzen.",
+      "charakter": "Sie ist sehr mutig, lustig und ein bisschen frech – aber auch sehr hilfsbereit!",
+    }
+  },
+  {
+    name: "Harry Potter",
+    emoji: "🧙",
+    hint: "Eine sehr berühmte Figur aus einem Buch",
+    beschreibung: "Diese Person ist ein Junge mit einer Brille und einer besonderen Narbe auf der Stirn. Er kann Zaubern und besucht eine ganz besondere Schule, die geheim ist. Er hat zwei sehr treue Freunde. Als kleines Kind ist etwas sehr Schlimmes passiert, aber er hat es überlebt.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Nein, es ist kein Mädchen.",
+      "junge": "Ja! Es ist ein Junge. 👦",
+      "tier": "Nein, kein Tier. Aber er hat eine Eule!",
+      "haare": "Ja, er hat Haare – schwarze, ziemlich zerzauste Haare.",
+      "lange haare": "Nein, die Haare sind nicht lang.",
+      "brille": "Ja! Er trägt eine runde Brille.",
+      "groß": "Er ist normal groß für sein Alter.",
+      "klein": "Am Anfang ist er eher klein und dünn.",
+      "kleidung": "Er trägt oft einen schwarzen Umhang – den Schulumhang seiner Zauberschule!",
+      "fähigkeiten": "Ja! Er kann zaubern und hat viele besondere Kräfte.",
+      "zaubern": "Ja! Er ist ein Zauberer und lernt Zaubern in einer geheimen Schule.",
+      "heimat": "Er kommt aus England. 🇬🇧",
+      "deutschland": "Nein, er kommt aus England.",
+      "buch": "Ja! Eine sehr berühmte Buchreihe mit 7 Bänden.",
+      "fernsehen": "Es gibt viele berühmte Kinofilme über ihn!",
+      "freunde": "Ja! Er hat zwei sehr treue Freunde – ein Mädchen und ein Junge.",
+      "schule": "Ja, er geht in eine ganz besondere, geheime Zauberschule!",
+      "eltern": "Seine Eltern sind leider früh gestorben. Er wuchs bei seiner Tante auf.",
+      "narbe": "Ja! Er hat eine blitzförmige Narbe auf der Stirn – das ist sein Erkennungszeichen!",
+      "tier": "Er hat eine weiße Eule namens Hedwig als Haustier!",
+      "eule": "Ja! Seine Eule heißt Hedwig.",
+      "charakter": "Er ist sehr mutig, treu und hilfsbereit. Manchmal auch etwas stur.",
+    }
+  },
+  {
+    name: "Pumuckl",
+    emoji: "🧝",
+    hint: "Eine Figur aus dem deutschen Fernsehen",
+    beschreibung: "Diese Person ist ein kleines, rothaariges Wesen – kein Mensch! Es ist sehr klein und quirlig, macht gerne Quatsch und kann unsichtbar werden. Es ist an einem alten Handwerker kleben geblieben und lebt seitdem in seiner Werkstatt. Es liebt Süßigkeiten und wird oft frech.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Nein, kein Mädchen.",
+      "junge": "Es ist kein richtiger Junge – es ist ein kleines Fabelwesen! Aber man spricht von ihm wie von einem Jungen.",
+      "tier": "Nein, kein Tier. Es ist ein Kobold!",
+      "haare": "Ja! Sehr auffällige rote Haare.",
+      "groß": "Nein! Es ist winzig klein!",
+      "klein": "Ja! Es ist sehr sehr klein.",
+      "kleidung": "Es trägt eine kleine, einfache Kleidung.",
+      "fähigkeiten": "Oh ja! Es kann unsichtbar werden – außer für eine einzige Person!",
+      "unsichtbar": "Ja! Es kann unsichtbar sein. Nur der alte Handwerker kann es sehen.",
+      "heimat": "Es lebt in München, Deutschland. 🇩🇪",
+      "deutschland": "Ja! Es lebt in Deutschland, in München.",
+      "buch": "Es kommt ursprünglich aus Hörspielen und wurde dann sehr bekannt durch eine TV-Serie.",
+      "fernsehen": "Ja! Eine berühmte deutsche Kinderserie!",
+      "freunde": "Sein bester Freund ist ein alter Schreiner namens Meister Eder.",
+      "charakter": "Es ist sehr lustig, frech, manchmal nervig – aber auch lieb. Es macht gerne Unfug!",
+      "süßigkeiten": "Ja! Es liebt Süßigkeiten über alles!",
+      "handwerker": "Ja! Es lebt in der Werkstatt von Meister Eder, einem alten Schreiner.",
+    }
+  },
+  {
+    name: "Heidi",
+    emoji: "🏔️",
+    hint: "Eine Figur aus einem Buch über die Berge",
+    beschreibung: "Diese Person ist ein kleines Mädchen mit lockigen Haaren, das sehr die Natur liebt. Es wächst bei seinem Großvater hoch oben in den Bergen auf. Es ist fröhlich, naturverbunden und freundet sich gerne mit anderen an. Später muss es in die Stadt ziehen – aber das macht es sehr unglücklich.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Ja! Es ist ein Mädchen. 👧",
+      "junge": "Nein, kein Junge.",
+      "tier": "Nein. Aber es lebt mit Ziegen in den Bergen!",
+      "haare": "Ja, lockige, braune Haare.",
+      "groß": "Nein, es ist noch ein Kind – eher klein.",
+      "klein": "Ja, es ist noch ein kleines Kind.",
+      "kleidung": "Einfache, natürliche Kleidung. Oft barfuß in den Bergen!",
+      "fähigkeiten": "Es ist sehr naturverbunden und kann gut mit Tieren umgehen.",
+      "heimat": "Die Schweiz, hoch oben in den Alpen! 🇨🇭",
+      "deutschland": "Nein, es kommt aus der Schweiz.",
+      "buch": "Ja! Ein sehr berühmtes Kinderbuch aus der Schweiz.",
+      "fernsehen": "Ja, es gibt viele Filme und Serien darüber!",
+      "freunde": "Ihr bester Freund ist ein Junge namens Peter, der Ziegenhirt.",
+      "großvater": "Ja! Es lebt bei seinem Großvater auf der Alm.",
+      "tiere": "Ja! Es lebt mit Ziegen in den Bergen.",
+      "natur": "Ja! Es liebt die Natur und die Berge sehr.",
+      "charakter": "Fröhlich, offen, naturverbunden und sehr hilfsbereit.",
+    }
+  },
+  {
+    name: "Bibi Blocksberg",
+    emoji: "🧹",
+    hint: "Eine junge Hexe aus deutschen Hörspielen",
+    beschreibung: "Diese Person ist ein Mädchen – aber kein gewöhnliches! Es ist eine kleine Hexe und kann Zaubern. Es fliegt auf einem Besen und lebt mit seiner Familie in einer ganz normalen Stadt. Sein Lieblingsspruch ist ein Zauberwort, mit dem es viele Dinge verwandeln kann.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Ja! Ein Mädchen – und zwar eine Hexe! 🧙‍♀️",
+      "junge": "Nein, kein Junge.",
+      "tier": "Nein. Aber sie hat eine Katze!",
+      "haare": "Ja, sie hat blonde Haare.",
+      "groß": "Nein, sie ist noch ein Kind.",
+      "kleidung": "Sie trägt oft typische Hexenkleidung!",
+      "fähigkeiten": "Sie kann zaubern! Und sie kann auf einem Besen fliegen.",
+      "zaubern": "Ja! Sie ist eine richtige Hexe und kann zaubern.",
+      "fliegen": "Ja! Sie fliegt auf einem Besen durch die Luft.",
+      "heimat": "Deutschland – in einer normalen Stadt. 🇩🇪",
+      "deutschland": "Ja! Sie lebt in Deutschland.",
+      "buch": "Sie kommt aus sehr berühmten Hörspielen und es gibt auch Bücher.",
+      "fernsehen": "Ja, es gibt auch Filme und Serien!",
+      "freunde": "Ihre beste Freundin ist ein normales Mädchen. Das ist manchmal lustig, weil die eine eine Hexe ist!",
+      "eltern": "Ihre Mutter ist auch eine Hexe, ihr Vater ist ein normaler Mensch.",
+      "charakter": "Sie ist mutig, neugierig und manchmal etwas voreilig – ihre Zauber gehen oft schief!",
+      "zauberwort": "Ja! Ihr Lieblingszauberwort ist ganz bekannt – 'Eins, zwei, drei – Hexerei!'",
+    }
+  },
+  {
+    name: "Ronja Räubertochter",
+    emoji: "🌲",
+    hint: "Eine Figur aus einem Buch von Astrid Lindgren",
+    beschreibung: "Diese Person ist ein wildes, tapferes Mädchen, das im Wald aufgewachsen ist. Ihr Vater ist Anführer einer Räuberbande und lebt in einer alten Burg. Das Mädchen liebt die Natur und erkundet gerne den Wald alleine. Sie trifft dort einen Jungen – eigentlich den Sohn vom Feind ihrer Familie.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Ja! Ein wildes, mutiges Mädchen. 👧",
+      "junge": "Nein, kein Junge.",
+      "tier": "Nein. Aber sie lebt mitten in der Natur mit vielen Wildtieren!",
+      "haare": "Ja, sie hat lange, dunkle, wilde Haare.",
+      "groß": "Sie ist ein Kind – also eher klein.",
+      "kleidung": "Einfache, grobe Kleidung – passend zum Leben im Wald.",
+      "fähigkeiten": "Sie ist sehr mutig, schnell und kennt den Wald perfekt.",
+      "heimat": "Sie lebt in Schweden, in einer alten Burg im Wald. 🇸🇪",
+      "deutschland": "Nein, sie kommt aus Schweden.",
+      "buch": "Ja! Ein berühmtes Buch von Astrid Lindgren.",
+      "fernsehen": "Ja, es gibt auch Verfilmungen!",
+      "freunde": "Ihr bester Freund ist ein Junge namens Birk – eigentlich vom Feindeshaus!",
+      "vater": "Ihr Vater ist Mattis – der Anführer einer Räuberbande!",
+      "räuber": "Ja! Ihr Vater ist Räuberhauptmann und sie wächst bei einer Räuberbande auf.",
+      "burg": "Ja! Sie lebt in einer alten Burg mitten im Wald.",
+      "natur": "Ja! Sie liebt den Wald und die Natur über alles.",
+      "charakter": "Mutig, wild, freiheitsliebend und sehr loyal zu ihren Freunden.",
+    }
+  },
+  {
+    name: "Der kleine Prinz",
+    emoji: "👑",
+    hint: "Eine Figur aus einem berühmten Buch für Kinder und Erwachsene",
+    beschreibung: "Diese Person ist ein kleiner Junge, der nicht von der Erde kommt. Er wohnt auf einem winzigen Planeten, so klein wie ein Haus. Er reist durch das Weltall und besucht verschiedene Planeten. Er hat eine Rose, die er sehr liebt. Auf der Erde trifft er einen Piloten in der Wüste.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Nein, kein Mädchen.",
+      "junge": "Ja! Ein kleiner Junge. 👦",
+      "tier": "Nein. Aber er hat einen Fuchs als Freund und eine Rose!",
+      "haare": "Ja, er hat blonde Haare.",
+      "groß": "Nein, er ist sehr klein und jung.",
+      "kleidung": "Er trägt eine elegante, kleine Uniform mit einem Schal.",
+      "fähigkeiten": "Er kann durch das Weltall reisen! Das ist ziemlich besonders.",
+      "heimat": "Er kommt nicht von der Erde – er kommt vom Planeten B-612, einem winzigen Planeten!",
+      "deutschland": "Nein, er kommt nicht aus Deutschland. Er kommt sogar von einem anderen Planeten!",
+      "buch": "Ja! Eines der berühmtesten Bücher der Welt!",
+      "fernsehen": "Ja, es gibt Filme und Animationen darüber.",
+      "freunde": "Sein bester Freund ist ein Fuchs. Und er hat eine Rose, die er sehr liebt.",
+      "fuchs": "Ja! Er freundet sich mit einem Fuchs an, der ihm beibringt, was es bedeutet, jemanden zu 'zähmen'.",
+      "rose": "Ja! Er hat eine wunderschöne Rose auf seinem Planeten, die er sehr vermisst.",
+      "planet": "Ja! Er wohnt auf einem winzigen, eigenen Planeten – dem Asteroiden B-612!",
+      "charakter": "Nachdenklich, liebevoll und sehr weise – obwohl er noch ein Kind ist.",
+      "wüste": "Ja! Er landet in der Wüste und trifft dort einen Piloten.",
+    }
+  },
+  {
+    name: "Benjamin Blümchen",
+    emoji: "🐘",
+    hint: "Eine sehr bekannte Figur aus deutschen Hörspielen",
+    beschreibung: "Diese Person ist KEIN Mensch – sie ist ein Tier! Aber ein ganz besonderes, denn es kann sprechen. Es lebt in einem Zoo in Deutschland und hat einen menschlichen besten Freund. Es ist sehr groß, grau und hat eine lange Nase. Es liebt es, anderen zu helfen.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Nein.",
+      "junge": "Nein – es ist kein Mensch!",
+      "tier": "Ja!!! Es ist ein Tier! 🐾",
+      "welches tier": "Es ist ein Elefant! 🐘",
+      "elefant": "Ja! Genau richtig!",
+      "haare": "Nein, es hat keine Haare – es ist ein Tier!",
+      "groß": "Ja! Sehr groß – es ist ein Elefant!",
+      "kleidung": "Manchmal trägt es eine kleine Mütze oder ähnliches.",
+      "fähigkeiten": "Es kann sprechen – obwohl es ein Tier ist! Das ist sein größtes Besonderheit.",
+      "sprechen": "Ja! Es kann sprechen und ist sehr klug.",
+      "heimat": "Es lebt in einem Zoo in Deutschland. 🇩🇪",
+      "deutschland": "Ja! Es lebt in Deutschland, in Neustadt.",
+      "buch": "Es kommt aus sehr berühmten Hörspielen und Büchern.",
+      "fernsehen": "Ja, es gibt auch eine Zeichentrickserie!",
+      "freunde": "Sein bester Freund ist ein kleiner Junge namens Otto.",
+      "zoo": "Ja! Es lebt im Zoo und alle Zoobesucher mögen es sehr.",
+      "rüssel": "Ja! Es hat natürlich eine lange Rüsselnase – es ist ja ein Elefant!",
+      "charakter": "Sehr freundlich, hilfsbereit und manchmal ein bisschen abenteuerlustig.",
+    }
+  },
+  {
+    name: "Nils Holgersson",
+    emoji: "🦢",
+    hint: "Eine Figur aus einem schwedischen Kinderbuch",
+    beschreibung: "Diese Person ist ein Junge, der durch Zauber sehr winzig klein geworden ist. Weil er so klein ist, kann er auf dem Rücken einer Gans durch ganz Schweden fliegen. Er reist mit einem Schwarm wilder Gänse und lernt dabei viel über Natur und Tiere. Vorher war er ein frecher, fauler Junge.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Nein.",
+      "junge": "Ja! Ein Junge. 👦",
+      "tier": "Nein, kein Tier. Aber er fliegt mit einer Gans!",
+      "haare": "Er hat normale, helle Haare.",
+      "groß": "Nein! Er wurde durch Zauber ganz winzig klein gemacht!",
+      "klein": "Ja! Sehr klein – er wurde von einem Kobold verkleinert!",
+      "kleidung": "Normale Kleidung – aber sehr klein.",
+      "fähigkeiten": "Er kann mit Tieren sprechen, seitdem er klein ist. Und er fliegt auf einer Gans!",
+      "fliegen": "Ja! Er fliegt auf dem Rücken einer Hausgans namens Mårten durch Schweden.",
+      "gans": "Ja! Er fliegt auf einer Gans namens Mårten.",
+      "heimat": "Er kommt aus Schweden. 🇸🇪",
+      "deutschland": "Nein, er kommt aus Schweden.",
+      "buch": "Ja! Ein sehr berühmtes schwedisches Kinderbuch.",
+      "fernsehen": "Ja! Es gibt eine sehr bekannte Zeichentrickserie darüber.",
+      "freunde": "Die Gans Mårten ist sein treuster Freund auf der Reise.",
+      "charakter": "Am Anfang frech und faul – aber durch die Reise wird er verantwortungsvoll und gut.",
+      "zauber": "Ja! Er wurde von einem Tomten (einem kleinen Kobold) durch Zauber verkleinert.",
+    }
+  },
+  {
+    name: "Wickie der Wikinger",
+    emoji: "⚓",
+    hint: "Ein Wikingerkind aus einer bekannten deutschen Zeichentrickserie",
+    beschreibung: "Diese Person ist ein kleiner Junge – ein Wikinger! Er ist körperlich nicht sehr stark, aber dafür unglaublich schlau. Wenn es ein Problem gibt, denkt er nach und hat immer eine gute Idee. Seine Nase ist sehr rund und auffällig. Sein Vater ist Anführer des Wikingerdorfes.",
+    fakten: {},
+    antworten: {
+      "mädchen": "Nein.",
+      "junge": "Ja! Ein kleiner Junge. 👦",
+      "tier": "Nein.",
+      "haare": "Ja, er hat blonde Haare unter seinem kleinen Helm.",
+      "groß": "Nein, er ist sehr klein und jung.",
+      "klein": "Ja, er ist der Kleinste im Dorf!",
+      "kleidung": "Er trägt typische Wikingerkleidung mit einem kleinen Helm!",
+      "fähigkeiten": "Er ist nicht stark, aber sehr klug! Er löst alle Probleme mit seinem Verstand.",
+      "stark": "Nein! Er ist körperlich schwach – aber sein Kopf ist umso stärker!",
+      "klug": "Ja! Er ist das klügste Kind im ganzen Wikingerdorf.",
+      "heimat": "Er lebt in einem Wikingerdorf in Skandinavien. 🇳🇴",
+      "deutschland": "Nein, aber er ist aus einer deutschen Zeichentrickserie bekannt.",
+      "buch": "Es gibt Bücher darüber, aber er ist vor allem durch eine Serie bekannt.",
+      "fernsehen": "Ja! Eine sehr beliebte Zeichentrickserie!",
+      "freunde": "Er hat Freunde im Wikingerdorf, mit denen er auf Abenteuer geht.",
+      "vater": "Sein Vater ist Halvar, der Häuptling des Wikingerdorfes!",
+      "wikinger": "Ja! Er ist ein echter Wikingerjunge!",
+      "charakter": "Klug, neugierig, einfallsreich und mutig auf seine eigene Art.",
+      "nase": "Ja, seine runde kleine Nase ist eines seiner bekanntesten Merkmale!",
+    }
+  }
+];
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let G = {
+  score: 0, best: 0, round: 1,
+  asked: 0, max: 8,
+  person: null, prev: null,
+  over: false,
+};
+
+// ─── Antwort-Engine ───────────────────────────────────────────────────────────
+function getAnswer(person, question) {
+  const q = question.toLowerCase().trim();
+  const answers = person.antworten;
+
+  // 1. Direkte Schlüsselwort-Suche
+  for (const key of Object.keys(answers)) {
+    if (q.includes(key)) return answers[key];
+  }
+
+  // 2. Allgemeine Fallback-Antworten
+  if (q.includes("wie alt") || q.includes("alter")) return `Die Person ist noch ein Kind – irgendwo zwischen 8 und 12 Jahren.`;
+  if (q.includes("farbe") || q.includes("lieblingsfarbe")) return `Das ist eine schwierige Frage – das verraten wir lieber nicht! 😄`;
+  if (q.includes("name") || q.includes("wer ist")) return `Den Namen verrate ich natürlich nicht! Das sollst du herausfinden! 😉`;
+  if (q.includes("bekannt") || q.includes("berühmt")) return `Ja, diese Person ist sehr bekannt bei Kindern!`;
+  if (q.includes("böse") || q.includes("gut")) return `Diese Person ist gut und hilfsbereit!`;
+  if (q.includes("sprechen") || q.includes("sprache")) return `Die Person spricht – je nach Geschichte – auf ganz eigene Weise.`;
+
+  return `Hmm, dazu kann ich leider nichts sagen. Versuch eine andere Frage! 🤔`;
+}
+
+// ─── Game logic ───────────────────────────────────────────────────────────────
+function newGame() {
+  // Reset
+  G.asked = 0; G.over = false;
+  G.prev = G.person;
+
+  // Pick new person
+  let tries = 0;
+  do {
+    G.person = PERSONEN[Math.floor(Math.random() * PERSONEN.length)];
+    tries++;
+  } while (G.person === G.prev && PERSONEN.length > 1 && tries < 20);
+
+  // UI reset
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('conv').innerHTML = '';
+  document.getElementById('clues').innerHTML = '';
+  document.getElementById('gInp').value = '';
+  document.getElementById('qInp').value = '';
+  document.getElementById('avatar').textContent = G.person.emoji;
+  document.getElementById('p-hint').textContent = G.person.hint;
+  document.getElementById('descBox').textContent = G.person.beschreibung;
+  document.getElementById('askBtn').disabled = false;
+  updateCounter();
+  updateScore();
+}
+
+function ask() {
+  const inp = document.getElementById('qInp');
+  const q = inp.value.trim();
+  if (!q || G.over) return;
+  if (G.asked >= G.max) {
+    addMsg('assistant', '⏰ Keine Fragen mehr! Jetzt musst du raten!');
+    return;
+  }
+
+  inp.value = '';
+  G.asked++;
+  updateCounter();
+  addMsg('user', q);
+
+  // Answer
+  const answer = getAnswer(G.person, q);
+  setTimeout(() => {
+    addMsg('assistant', answer);
+    // Add clue tag (first 22 chars of question)
+    addClue('💡 ' + q.substring(0, 22) + (q.length > 22 ? '…' : ''));
+  }, 300);
+
+  if (G.asked >= G.max) {
+    setTimeout(() => {
+      addMsg('assistant', '⚠️ Du hast alle 8 Fragen gestellt. Jetzt ist es Zeit zu raten!');
+      document.getElementById('askBtn').disabled = true;
+    }, 500);
+  }
+}
+
+function guess() {
+  const inp = document.getElementById('gInp');
+  const g = inp.value.trim();
+  if (!g || G.over) return;
+  G.over = true;
+
+  const target = G.person.name.toLowerCase();
+  const guess = g.toLowerCase();
+  const correct = guess.includes(target) || target.includes(guess) ||
+    target.split(' ').some(w => w.length > 3 && guess.includes(w));
+
+  const pts = correct ? Math.max(1, 6 - Math.floor(G.asked / 2)) : 0;
+  if (correct) {
+    G.score += pts;
+    if (G.score > G.best) G.best = G.score;
+  }
+  G.round++;
+  updateScore();
+
+  document.getElementById('rIco').textContent = correct ? '🎉' : '😅';
+  document.getElementById('rTitle').textContent = correct ? 'Richtig!' : 'Leider falsch!';
+  document.getElementById('rMsg').textContent = correct
+    ? `Super gemacht! Du hast ${G.asked} Frage${G.asked === 1 ? '' : 'n'} gebraucht und ${pts} Punkt${pts === 1 ? '' : 'e'} bekommen!`
+    : `Diese Person hat dich getäuscht! Kein Problem – beim nächsten Mal klappt es bestimmt!`;
+  document.getElementById('rAns').textContent = `✅ Die gesuchte Person war: ${G.person.name}`;
+  document.getElementById('result').classList.add('show');
+}
+
+// ─── UI Helpers ───────────────────────────────────────────────────────────────
+function fillQ(text) {
+  document.getElementById('qInp').value = text;
+  document.getElementById('qInp').focus();
+}
+
+function addMsg(role, text) {
+  const conv = document.getElementById('conv');
+  const d = document.createElement('div');
+  d.className = `msg ${role}`;
+  d.innerHTML = `<div class="msg-ico">${role === 'assistant' ? '🕵️' : '🧒'}</div><div class="msg-bbl">${text}</div>`;
+  conv.appendChild(d);
+  conv.scrollTop = conv.scrollHeight;
+}
+
+function addClue(text) {
+  const c = document.getElementById('clues');
+  const t = document.createElement('span');
+  t.className = 'clue-tag';
+  t.textContent = text;
+  c.appendChild(t);
+}
+
+function updateCounter() {
+  document.querySelectorAll('.cdot').forEach((d, i) => d.classList.toggle('used', i < G.asked));
+  document.getElementById('cText').textContent = `${G.asked} / ${G.max}`;
+}
+
+function updateScore() {
+  document.getElementById('score').textContent = G.score;
+  document.getElementById('round').textContent = G.round;
+  document.getElementById('best').textContent = G.best;
+}
+
+// ─── Events ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('qInp').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); ask(); }
+  });
+  document.getElementById('gInp').addEventListener('keydown', e => {
+    if (e.key === 'Enter') guess();
+  });
+  newGame();
+});
+</script>
+</body>
+</html>
